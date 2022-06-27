@@ -3,11 +3,14 @@ int arraySizeInt = Convert.ToInt32(arraySize);
 double[] array = new double[arraySizeInt];
 FillArrayRandom(array);
 PrintArray(array);
-double minValue = 0;
-double maxValue = 0;
-SearchMinMaxValue(array, minValue, maxValue);
-double different = maxValue - minValue;
-Console.Write("Different of max and min values: " + different);
+double minValue = array[0];
+double maxValue = array[0];
+//SearchMinMaxValue(array, minValue, maxValue);       // Вариант с процедурой, не работает, почему то не сохраняет или не считает вводные параметры (minValue и maxValue)
+minValue = SearchMinValue(array, minValue);         // Вариант 2 (с функцией)
+maxValue = SearchMaxValue(array, maxValue);         // Варинат 2 (с функцией)
+Console.WriteLine("Max value: " + maxValue + ", " + "Min value: " + minValue);
+double difference = maxValue - minValue;
+Console.Write("Difference of max and min values: " + difference);
 
 double InputArrayData(string output)
 {
@@ -36,10 +39,8 @@ void PrintArray(double[] a)
     }
 }
 
-void SearchMinMaxValue(double[] a, double min, double max)
+/*void SearchMinMaxValue(double[] a, double min, double max)         // Вариант с процедурой, не работает, почему то не сохраняет или не считает вводные параметры (minValue и maxValue)
 {
-    min = 0;
-    max = 0;
     for(int i = 0; i < a.Length; i++)
     {
         if(a[i] < min)
@@ -51,4 +52,30 @@ void SearchMinMaxValue(double[] a, double min, double max)
             max = a[i];
         }
     }
+}*/
+
+double SearchMinValue(double[] a, double min)
+{
+    for(int i = 0; i < a.Length; i++)
+    {
+        if(a[i] < min)
+        {
+            min = a[i];
+        }
+    }
+    return min;    
 }
+
+double SearchMaxValue(double[] a, double max)
+{
+    for(int i = 0; i < a.Length; i++)
+    {
+        if(a[i] > max)
+        {
+            max = a[i];
+        }
+    }
+    return max;    
+}
+
+// Спасибо за коментарии по домашке ;)
